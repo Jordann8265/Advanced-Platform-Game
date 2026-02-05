@@ -1,0 +1,44 @@
+from flask import Flask, render_template, request, jsonify
+import json
+import os
+
+app = Flask(__name__)
+
+# The name of the file to store the 'Last Run' data
+DATA_FILE = 'last_run.json'
+
+def initialize_data():
+    """Checks if the data file exists. If not, creates it with zeroed stats."""
+    if not os.path.exists(DATA_FILE):
+        default_data = {"distance": 0, "enemies_defeated": 0}
+        with open(DATA_FILE, 'w') as f:
+            json.dump(default_data, f)
+
+@app.route('/')
+def index():
+    """Serves the main HTML page of the game."""
+    return render_template('index.html')
+
+@app.route('/save_score', methods=['POST'])
+def save_score():
+    """Receives score data from JavaScript and writes it to the JSON file."""
+    data = request.json
+    # data will look like {'distance': 1200, 'kills': 15}
+    
+    with open(DATA_FILE, 'w') as f:
+        json.dump(data, f)
+    
+    return jsonify({"status": "success", "message": "Score saved locally!"})
+
+@app.route('/get_score', methods=['GET'])
+def get_score():
+    """Sends the saved 'Last Run' data back to the game when it starts."""
+    initialize_data()
+    with open(DATA_FILE, 'r') as f:
+        score_data = json.load(f)
+    return jsonify(score_data)
+
+if __name__ == '__main__':
+    initialize_data()
+    # Runs the server on http://127.0.0.1:5000
+    app.run(debug=True)

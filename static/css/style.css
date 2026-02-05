@@ -1,0 +1,79 @@
+/* Reset default browser margins and padding to ensure the game fills the space correctly */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Style the body to act as a container for the game world */
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Prevents scrollbars from appearing when the player moves */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace; /* A gamey look for the text */
+    background-color: #333; /* Dark default background */
+    transition: background-color 2s ease; /* Allows smooth level transitions */
+}
+
+/* The Canvas is the main stage */
+#gameCanvas {
+    background-color: transparent; /* Draw the background colors via the body or JS */
+    border: 2px solid #555;
+    display: block;
+}
+
+/* HUD (Heads-Up Display) positioning */
+#ui-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    z-index: 10; /* Ensures the text stays on top of the canvas */
+    pointer-events: none; /* Allows mouse clicks to pass through to the game */
+}
+
+.stat-box {
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Makes text readable against colors */
+}
+
+/* Game Over Screen styling */
+#game-over-screen {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.85); /* Semi-transparent black */
+    color: #ff4444; /* Bright red for impact */
+    padding: 40px;
+    text-align: center;
+    border: 5px solid #ff4444;
+    border-radius: 15px;
+    z-index: 100;
+}
+
+/* Utility class to hide the game-over screen while playing */
+.hidden {
+    display: none !important;
+}
+
+/* Level Background Colors */
+.level-1 { background-color: #808080; } /* Grey */
+.level-2 { background-color: #000080; } /* Navy */
+.level-3 { background-color: #4B0082; } /* Indigo/Purple */
+
+/* Button styling for the 'Try Again' button */
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #cc0000;
+}
