@@ -88,7 +88,7 @@ function generateLevelSegment(startX, endX) {
             platforms.push(new Platform(currentX, BASE_Y, segmentWidth, true));
             
             // Randomly spawn an enemy on this base segment (20% chance)
-            if (Math.random() < 0.2) {
+            if (Math.random() < 0.8) {
                 enemies.push(new Enemy(currentX + segmentWidth / 2, BASE_Y));
             }
         } else {
